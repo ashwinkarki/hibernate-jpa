@@ -5,6 +5,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="course")
@@ -31,6 +33,15 @@ public class Course {
     private LocalDateTime createdDate;
 
 
+    //one to many
+    @OneToMany(mappedBy = "course",fetch = FetchType.EAGER)
+    private List<Review> reviewList=new ArrayList<>();
+
+
+
+    //many to many
+    @ManyToMany(mappedBy = "courses")
+    private List<Student> students=new ArrayList<>();
 
     public Course(String name) {
         this.name = name;
@@ -63,5 +74,25 @@ public class Course {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 '}';
+    }
+
+    public List<Review> getReviewList() {
+        return reviewList;
+    }
+
+    public void setReview(Review review) {
+        this.reviewList.add(review);
+    }
+
+    public void removeReview(Review review) {
+        this.reviewList.remove(review);
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudent(Student student) {
+        this.students.add(student);
     }
 }

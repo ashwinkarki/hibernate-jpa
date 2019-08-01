@@ -1,6 +1,7 @@
 package com.ashwin.jpa.hiberante.jpaapp.repository;
 
 import com.ashwin.jpa.hiberante.jpaapp.entity.Course;
+import com.ashwin.jpa.hiberante.jpaapp.entity.Review;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Repository
 @Transactional
@@ -58,4 +60,37 @@ public class CourseRepository {
     }
 
 
+    //one to many mapping
+    public void addHarcodedReviewsForCourse() {
+        //get the course
+        Course course=findById(10001L);
+        logger.info("course.getReviews() -> {}",course.getReviewList());
+
+        Review review1=new Review("5","Great hands off Pythons");
+        Review review2=new Review("5","Great hands off Pythons");
+
+        course.setReview(review1);
+        review1.setCourse(course);
+
+        course.setReview(review2);
+        review2.setCourse(course);
+
+        entityManager.persist(review1);
+        entityManager.persist(review2);
+    }
+
+
+    //one to many mapping generic
+    public void addReviewsForCourse(Long courseId, List<Review> reviewList) {
+        //get the course
+        Course course=findById(courseId);
+        logger.info("course.getReviews() -> {}",course.getReviewList());
+
+        for(Review review:reviewList){
+            course.setReview(review);
+            review.setCourse(course);
+            entityManager.persist(review);
+        }
+
+    }
 }

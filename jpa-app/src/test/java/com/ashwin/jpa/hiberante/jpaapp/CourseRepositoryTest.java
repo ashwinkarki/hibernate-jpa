@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.transaction.annotation.Transactional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -54,6 +55,14 @@ public class CourseRepositoryTest {
 	@DirtiesContext  //at the end of test dirtiescontext reset the data into same form
 	public void playWithEntityManager() {
 		courseRepository.playWithEntityManager();
+	}
+
+	@Test
+	@DirtiesContext  //at the end of test dirtiescontext reset the data into same form
+	@Transactional
+	public void retrieveReviewsForCourse() {
+		Course course1=courseRepository.findById(10001L);
+		logger.info("{}",course1.getReviewList());
 	}
 
 
