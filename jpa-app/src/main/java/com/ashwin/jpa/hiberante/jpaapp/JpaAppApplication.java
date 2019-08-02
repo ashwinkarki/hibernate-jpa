@@ -1,9 +1,8 @@
 package com.ashwin.jpa.hiberante.jpaapp;
 
-import com.ashwin.jpa.hiberante.jpaapp.entity.Course;
-import com.ashwin.jpa.hiberante.jpaapp.entity.Review;
-import com.ashwin.jpa.hiberante.jpaapp.entity.Student;
+import com.ashwin.jpa.hiberante.jpaapp.entity.*;
 import com.ashwin.jpa.hiberante.jpaapp.repository.CourseRepository;
+import com.ashwin.jpa.hiberante.jpaapp.repository.EmployeeRepository;
 import com.ashwin.jpa.hiberante.jpaapp.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,6 +25,9 @@ public class JpaAppApplication implements CommandLineRunner {
 
 	@Autowired
 	private StudentRepository studentRepository;
+
+	@Autowired
+	private EmployeeRepository employeeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(JpaAppApplication.class, args);
@@ -52,8 +55,16 @@ public class JpaAppApplication implements CommandLineRunner {
 		 reviewList.add(new Review("4","All right learned"));
 		 courseRepository.addReviewsForCourse(10001L,reviewList);*/
 
-		studentRepository.insertStudentAndCourse(new Student("Bhawana"),new Course("byakaran"));
+	//  inserting many to many
+		//	studentRepository.insertStudentAndCourse(new Student("Bhawana"),new Course("byakaran"));
 
+
+		//inserting for herirrachiy of employee
+	/*	employeeRepository.insert(new PartTimeEmployee("Jill",new BigDecimal(50)));
+         employeeRepository.insert(new FullTimeEmployee("Jack",new BigDecimal(10000)));
+
+         logger.info("Retreieve all empployee {}",employeeRepository.retrieveAllEmployees());
+*/
 	}
 
 }
