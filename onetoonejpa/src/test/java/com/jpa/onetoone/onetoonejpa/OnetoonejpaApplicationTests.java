@@ -41,6 +41,10 @@ public class OnetoonejpaApplicationTests {
 	public void delete_user_and_address(){
 		userRepository.deleteuser(1L);
 	}
+    @Test
+    public void getAllUsers(){
+        logger.info("All usersis {}",userRepository.findAll());
+    }
 
 
 

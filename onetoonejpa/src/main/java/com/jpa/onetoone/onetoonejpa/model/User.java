@@ -15,7 +15,7 @@ public class User {
 
    private String password;
 
-   @OneToOne(cascade=CascadeType.ALL,mappedBy = "user")
+   @OneToOne(mappedBy = "user",fetch = FetchType.LAZY)
    private Address address;
 
     public User(String username, String password) {
